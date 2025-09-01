@@ -8,7 +8,7 @@ export default function HomePage() {
 
   useEffect(() => {
     // Directly redirect to generations page
-    router.push('/generations')
+    router.push('./generations')
   }, [router])
 
   // Show loading while redirecting
