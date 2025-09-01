@@ -1,0 +1,72 @@
+{
+  "yue_tags": {
+    "genres": [
+      "pop", "rock", "electronic", "classical", "jazz", "hip-hop", "folk", "country", "blues", "ambient", 
+      "r&b", "funk", "reggae", "punk", "metal", "indie", "disco", "house", "techno", "dubstep",
+      "soundtrack", "experimental", "dance", "soul", "gospel", "latin", "world", "new age", 
+      "hardcore", "grunge", "alternative rock", "indie rock", "classic rock", "hard rock",
+      "death metal", "black metal", "thrash metal", "metalcore", "power metal", "symphonic metal",
+      "trap", "bossa nova", "salsa", "reggaeton", "k-pop", "j-rock", "synthpop", "new wave",
+      "post-rock", "post-hardcore", "shoegaze", "noise", "avant-garde", "opera", "choral",
+      "big band", "swing", "bluegrass", "rockabilly", "ska", "grime", "downtempo", "chillout",
+      "lounge", "electro pop", "dancehall", "industrial", "grindcore", "deathcore", "emo",
+      "screamo", "heavy metal", "progressive rock", "instrumental", "8-bit", "eurodance"
+    ],
+    
+    "instruments": [
+      "guitar", "piano", "drums", "bass", "violin", "synthesizer", "keyboard", "saxophone", 
+      "vocals", "acoustic guitar", "electric guitar", "bass guitar", "cello", "flute", "trumpet",
+      "harmonica", "harp", "percussion", "strings", "brass", "voice", "singing", "beats",
+      "drum machine", "synth", "organ", "banjo", "fiddle", "ukulele", "sitar", "oud",
+      "erhu", "accordion", "trombone", "oboe", "clarinet", "french horn", "timpani",
+      "xylophone", "marimba", "glockenspiel", "tambourine", "congas", "tabla", "djembe",
+      "turntables", "sampler", "computer", "electronic", "choir", "rap", "beatboxing",
+      "pedal steel guitar", "dobro", "mandolin", "banjo", "shakuhachi", "koto", "zither",
+      "steel pan", "bongos", "cavaquinho", "pandeira", "whistle", "alto saxophone"
+    ],
+    
+    "moods": [
+      "uplifting", "emotional", "happy", "romantic", "sad", "melancholic", "dark", "energetic",
+      "calm", "relaxing", "inspiring", "dreamy", "nostalgic", "hopeful", "aggressive", "peaceful",
+      "intense", "powerful", "epic", "dramatic", "mysterious", "atmospheric", "playful",
+      "confident", "rebellious", "passionate", "sentimental", "optimistic", "motivational",
+      "intimate", "cheerful", "exciting", "soothing", "festive", "adventurous", "futuristic",
+      "vintage", "ambient", "meditative", "spiritual", "danceable", "groovy", "funky",
+      "elegant", "gentle", "vibrant", "bold", "tough", "determined", "empowering",
+      "celebratory", "joyful", "heartfelt", "cool", "vivacious", "thoughtful", "introspective",
+      "sultry", "seductive", "raw", "polished", "gritty", "smooth", "rough"
+    ],
+    
+    "gender": [
+      "male", "female", "child", "soprano", "tenor", "unspecified", "singing", 
+      "mezzo-soprano", "baritone", "alto", "rapping", "screamo"
+    ],
+    
+    "timbre": [
+      "bright vocal", "airy vocal", "clear vocal", "mellow vocal", "dark vocal", "rich vocal",
+      "light vocal", "crisp vocal", "powerful vocal", "soft vocal", "smooth vocal", "rough vocal",
+      "deep vocal", "high vocal", "warm vocal", "cool vocal", "resonant vocal", "breathy vocal",
+      "grainy vocal", "husky vocal", "raspy vocal", "sweet vocal", "strong vocal", "gentle vocal",
+      "aggressive vocal", "passionate vocal", "soulful vocal", "melodic vocal", "rhythmic vocal",
+      "full vocal", "thin vocal", "wide vocal", "narrow vocal", "open vocal", "muffled vocal",
+      "distortion vocal", "reverb vocal", "raw vocal", "polished vocal", "youthful vocal",
+      "boomy vocal", "varied vocal", "bouncy vocal", "range vocal", "harsh vocal", "round vocal",
+      "uplifting vocal", "husky vocal", "tenor vocal", "pontificate vocal", "neat vocal",
+      "exuberant vocal", "full bodied vocal", "vocal fry vocal", "gravelly vocal", "low vocal",
+      "velvet vocal", "placid vocal", "plastic vocal", "sharp vocal", "robust vocal",
+      "crunchy vocal", "pure vocal", "gruff vocal", "high pitched vocal", "athletic vocal",
+      "reedy vocal", "shimmering vocal", "charismatic vocal", "gliding vocal", "plucky vocal",
+      "loud vocal", "flat vocal", "tempo-synced vocal", "opulent vocal", "variable vocal",
+      "percussive vocal", "barrel vocal", "breezy vocal", "honeyed vocal", "tender vocal",
+      "potent vocal", "preppy vocal", "fruity vocal", "whiny vocal", "hollow vocal",
+      "flexible vocal", "sultry vocal", "elevated vocal", "rumbly vocal", "shrill vocal",
+      "projected vocal", "low pitched vocal", "bold vocal", "glorious vocal", "whispery vocal",
+      "nasal vocal", "squeaky vocal", "commanding vocal", "textural vocal", "noble vocal",
+      "punchy vocal", "pretty vocal", "changeable vocal", "gritty vocal", "barking vocal",
+      "human vocal", "dulcet vocal", "young vocal", "hoarse vocal", "soothing vocal",
+      "bitter vocal", "screechy vocal", "muddy vocal", "weathered vocal", "roaring vocal",
+      "pensive vocal", "textured vocal", "melodic vocal", "treble vocal", "shouty vocal",
+      "medium vocal", "blue vocal", "screeching vocal", "multiphonic vocal", "quaint vocal"
+    ]
+  }
+}

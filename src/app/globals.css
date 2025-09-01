@@ -1,0 +1,244 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@layer base {
+  :root {
+    --background: 24 10% 10%;
+    --foreground: 0 0% 98%;
+    --card: 24 10% 10%;
+    --card-foreground: 0 0% 98%;
+    --popover: 24 10% 10%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 20.5 90.2% 48.2%;
+    --primary-foreground: 60 9.1% 97.8%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 12 6.5% 15.1%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 85.7% 97.3%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 20.5 90.2% 48.2%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+    --radius: 0.5rem;
+    --warning: 14 100% 44%;
+    /* Animation variables */
+    --duration: 40s;
+    --gap: 1rem;
+
+    /* Color variables for rainbow effects */
+    --color-1: 220 70% 50%;
+    --color-2: 160 60% 45%;
+    --color-3: 30 80% 55%;
+    --color-4: 280 65% 60%;
+    --color-5: 340 75% 55%;
+  }
+
+  .dark {
+    --background: 24 10% 10%;
+    --foreground: 0 0% 98%;
+    --card: 24 10% 10%;
+    --card-foreground: 0 0% 98%;
+    --popover: 24 10% 10%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 20.5 90.2% 48.2%;
+    --primary-foreground: 60 9.1% 97.8%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 12 6.5% 15.1%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 85.7% 97.3%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 20.5 90.2% 48.2%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+
+  * {
+    border-color: hsl(var(--border));
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* Remove progress bar from video controls (Chrome, Safari) */
+  video::-webkit-media-controls-timeline {
+    display: none !important;
+  }
+
+  video::-webkit-media-controls-progress-bar {
+    display: none !important;
+  }
+
+  /* Firefox */
+  video::-moz-progress-bar {
+    display: none !important;
+  }
+}
+
+@layer components {
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--foreground));
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--primary));
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--warning));
+  }
+
+  /* Custom focus */
+  *:focus-visible {
+    outline: 2px solid hsl(var(--primary));
+    outline-offset: 2px;
+  }
+
+  /* Glass morphism */
+  .glass {
+    background: rgba(10, 10, 10, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .glass-hover:hover {
+    background: rgba(10, 10, 10, 0.8);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  /* Gradient borders */
+  .gradient-border {
+    position: relative;
+    border-radius: 0.5rem;
+    padding: 2px;
+    background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--warning)));
+  }
+  .gradient-border::before {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    background: hsl(var(--background));
+    border-radius: 0.4rem;
+    z-index: -1;
+  }
+
+  /* Button hover effect */
+  .btn-hover-effect {
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-hover-effect::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: width 0.5s;
+  }
+  .btn-hover-effect:hover::before {
+    width: 100%;
+  }
+
+  /* Custom slider styling */
+  .slider {
+    background: hsl(var(--border));
+  }
+  
+  .slider::-webkit-slider-thumb {
+    appearance: none;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: hsl(var(--primary));
+    cursor: pointer;
+    border: 2px solid hsl(var(--background));
+    box-shadow: 0 0 0 1px hsl(var(--border));
+  }
+  
+  .slider::-webkit-slider-thumb:hover {
+    background: hsl(var(--warning));
+  }
+  
+  .slider::-moz-range-thumb {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: hsl(var(--primary));
+    cursor: pointer;
+    border: 2px solid hsl(var(--background));
+    box-shadow: 0 0 0 1px hsl(var(--border));
+  }
+  
+  .slider::-moz-range-thumb:hover {
+    background: hsl(var(--warning));
+  }
+}
+
+@layer utilities {
+  /* Gradient text utility */
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(to right, hsl(var(--primary)), hsl(var(--warning)));
+  }
+
+  /* Animation utilities */
+  .pause-animation {
+    animation-play-state: paused !important;
+  }
+
+  /* Background grid utility */
+  .bg-grid-white\/\[0\.01\] {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='rgb(255 255 255 / 0.01)'%3e%3cpath d='m0 .5 32 0'/%3e%3cpath d='m0 32.5 32 0'/%3e%3cpath d='m.5 0 0 32'/%3e%3cpath d='m32.5 0 0 32'/%3e%3c/svg%3e");
+  }
+  .bg-grid-8 {
+    background-size: 32px 32px;
+  }
+
+  /* Animation direction utilities */
+  .animate-reverse {
+    animation-direction: reverse !important;
+  }
+
+  /* Custom duration utilities */
+  .duration-20s {
+    --duration: 20s;
+  }
+  .duration-30s {
+    --duration: 30s;
+  }
+  .duration-40s {
+    --duration: 40s;
+  }
+  .duration-60s {
+    --duration: 60s;
+  }
+
+}
