@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 import OpenAI from 'openai'
 import Replicate from 'replicate'
-import { getGenerationsCollection, ObjectId } from '@/lib/mongodb'
+// import { getGenerationsCollection, ObjectId } from '@/lib/mongodb'
 import { checkRateLimit, generateSecureId, hashUrl, createSecureAudioUrl } from '@/lib/security'
-import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
+// import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
 import fs from 'fs'
+import { join } from 'path'
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
@@ -14,15 +15,16 @@ const replicate = new Replicate({
   auth: process.env.REPLICATE_API_TOKEN
 })
 
-// S3 Client setup
-const s3Client = new S3Client({
-  region: process.env.AWS_REGION,
-  credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!
-  }
-})
+// S3 Client setup - COMMENTED OUT
+// const s3Client = new S3Client({
+//   region: process.env.AWS_REGION,
+//   credentials: {
+//     accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
+//     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!
+//   }
+// })
 
+/* COMMENTED OUT - S3 UPLOAD FUNCTION
 async function uploadAudioToS3(audioUrl: string, generationId: string): Promise<string> {
   try {
     // Download the audio file from the URL
@@ -51,6 +53,7 @@ async function uploadAudioToS3(audioUrl: string, generationId: string): Promise<
     throw error
   }
 }
+*/
 
 export async function POST(request: NextRequest) {
   try {
@@ -70,7 +73,7 @@ export async function POST(request: NextRequest) {
     const generationId = generateSecureId()
 
     // Load the tags JSON file to extract relevant tags
-    const tagsJsonPath = 'c:\\Users\\ajayr\\Desktop\\texttomusic\\DemoUI\\yue_tags_json.json'
+    const tagsJsonPath = join(process.cwd(), 'yue_tags_json.json')
     const tagsData = JSON.parse(fs.readFileSync(tagsJsonPath, 'utf8'))
 
     // Use OpenAI to extract relevant tags from the prompt
@@ -119,34 +122,45 @@ Available tags JSON: ${JSON.stringify(tagsData)}`
     // Extract URL from Replicate response
     const replicateUrl = String(output)
 
-    // Upload to S3 for permanent storage
-    const s3Url = await uploadAudioToS3(replicateUrl, generationId)
+    // S3 UPLOAD COMMENTED OUT
+    // Try to upload to S3 for permanent storage (optional)
+    // let s3Url = null
+    // try {
+    //   if (process.env.AWS_ACCESS_KEY_ID && process.env.AWS_SECRET_ACCESS_KEY && process.env.S3_BUCKET_NAME) {
+    //     s3Url = await uploadAudioToS3(replicateUrl, generationId)
+    //   }
+    // } catch (s3Error) {
+    //   console.error('S3 upload failed, continuing without backup:', s3Error)
+    //   // Continue without S3 backup
+    // }
 
     // Create secure URL hash for the Replicate URL (for user access)
     const urlHash = hashUrl(replicateUrl, generationId)
     const secureAudioUrl = createSecureAudioUrl(generationId, urlHash)
 
+    // MONGODB DATABASE SAVE COMMENTED OUT
     // Save to database with both URLs (optional - system works without it)
-    try {
-      const generationsCollection = await getGenerationsCollection()
-      const generation = {
-        _id: new ObjectId(),
-        generationId: generationId,
-        prompt: prompt,
-        tags,
-        lyrics: lyrics || null,
-        audioUrl: s3Url,
-        replicateUrl: replicateUrl,
-        status: "COMPLETED",
-        createdAt: new Date(),
-        updatedAt: new Date()
-      }
-      
-      await generationsCollection.insertOne(generation)
-    } catch (dbError) {
-      // Database save failed but system continues without DB
-      // System works fine without database - just for record keeping
-    }
+    // try {
+    //   const generationsCollection = await getGenerationsCollection()
+    //   const generation = {
+    //     _id: new ObjectId(),
+    //     generationId: generationId,
+    //     prompt: prompt,
+    //     tags,
+    //     lyrics: lyrics || null,
+    //     audioUrl: s3Url || replicateUrl, // Use S3 URL if available, otherwise Replicate URL
+    //     replicateUrl: replicateUrl,
+    //     status: "COMPLETED",
+    //     createdAt: new Date(),
+    //     updatedAt: new Date()
+    //   }
+    //   
+    //   await generationsCollection.insertOne(generation)
+    // } catch (dbError) {
+    //   console.error('Database save failed, continuing without DB:', dbError)
+    //   // Database save failed but system continues without DB
+    //   // System works fine without database - just for record keeping
+    // }
 
     // Return response with direct Replicate URL for immediate access
     return NextResponse.json({
@@ -157,8 +171,26 @@ Available tags JSON: ${JSON.stringify(tagsData)}`
     })
 
   } catch (error) {
+    console.error('Music generation error:', error)
+    
+    // Check if it's a specific error type
+    if (error instanceof Error) {
+      if (error.message.includes('authentication') || error.message.includes('API key')) {
+        return NextResponse.json(
+          { error: 'API authentication failed. Please check your API tokens.' },
+          { status: 401 }
+        )
+      }
+      if (error.message.includes('AWS') || error.message.includes('S3')) {
+        return NextResponse.json(
+          { error: 'Storage error. Please check AWS credentials.' },
+          { status: 500 }
+        )
+      }
+    }
+    
     return NextResponse.json(
-      { error: 'Failed to generate music. Please try again.' },
+      { error: 'Failed to generate music. Please try again.', details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     )
   }
